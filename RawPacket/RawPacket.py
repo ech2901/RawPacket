@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from ipaddress import IPv4Address, IPv6Address
 from struct import pack, unpack
 from typing import Dict
-from Tags import *
+from RawPacket.Tags import *
 
 
 # --------------------------------------------------
