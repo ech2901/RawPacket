@@ -21,9 +21,9 @@ class MetaPacket(type):
             # super().__init_subclass__()
             cls.classes[cls.identifier] = cls
 
-        delattr(cls, 'identifier')
-        del cls.__dict__['__annotations__']['identifier']
-        del cls.__dict__['__annotations__']['format']
+        for key in ('identifier', 'format'):
+            if key in cls.__dict__['__annotations__']:
+                del cls.__dict__['__annotations__'][key]
 
 
 class BasePacket(object):
@@ -79,4 +79,7 @@ class LinkLayerPacket(BasePacket, metaclass=MetaPacket):
 
 
 class InternetLayerPacket(BasePacket, metaclass=MetaPacket):
+    pass
+
+class ProtocolLayerPacket(BasePacket, metaclass=MetaPacket):
     pass
