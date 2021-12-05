@@ -23,6 +23,7 @@ class MetaPacket(type):
 
         delattr(cls, 'identifier')
         del cls.__dict__['__annotations__']['identifier']
+        del cls.__dict__['__annotations__']['format']
 
 
 class BasePacket(object):
