@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import IntEnum
 
-class EtherType(Enum):
+class EtherType(IntEnum):
     IP4 = 0x0800
     ARP = 0X0806
     WAKE_ON_LAN = 0X0842
@@ -58,7 +58,7 @@ class EtherType(Enum):
     REDUNDANCY_TAG = 0XF1C1
 
 
-class IPProtocol(Enum):
+class IPProtocol(IntEnum):
     HOPOPT = 0X00
     ICMP = 0X01
     IGMP = 0X02
