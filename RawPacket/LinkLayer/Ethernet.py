@@ -14,8 +14,6 @@ class Ethernet(LinkLayerPacket):
     ethertype: EtherType
     payload: InternetLayerPacket
 
-    identifier: int = 1
-
     def __init__(self, destination: MACAddress, source: MACAddress, payload: InternetLayerPacket, **kwargs):
         LinkLayerPacket.__init__(self)
 
