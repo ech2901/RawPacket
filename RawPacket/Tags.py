@@ -1,8 +1,11 @@
 from enum import IntEnum
 
+from RawPacket.BaseClasses import LinkLayerPacket, InternetLayerPacket, ProtocolLayerPacket
+
+
 class EtherType(IntEnum):
-    IP4 = 0x0800
-    ARP = 0X0806
+    IP4 = 0x0800, InternetLayerPacket
+    ARP = 0X0806, LinkLayerPacket
     WAKE_ON_LAN = 0X0842
     AVTP = 0X22F0
     TRILL = 0X22F3
@@ -18,7 +21,7 @@ class EtherType(IntEnum):
     VLACP = 0X8103
     IPX = 0X8137
     QNX_QNET = 0X8204
-    IP6 = 0X86DD
+    IP6 = 0X86DD, InternetLayerPacket
     ETHERNET_FLOW_CONTROL = 0X8808
     ETHERNET_SLOW_PROTOCOLS = 0X8809
     COBRANET = 0X8819
@@ -56,6 +59,16 @@ class EtherType(IntEnum):
     HSR = 0X892F
     ETHERNET_CONFIG_TESTING = 0X9000
     REDUNDANCY_TAG = 0XF1C1
+
+    def __new__(cls, value, layer_class=None):
+        obj = int.__new__(cls, value)
+        obj._value_ = value
+        if layer_class:
+            obj.layer_class = layer_class
+        else:
+            obj.layer_class = InternetLayerPacket
+        return obj
+
 
 
 class IPProtocol(IntEnum):

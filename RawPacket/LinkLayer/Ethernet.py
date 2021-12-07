@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from struct import pack, unpack
 
 from RawPacket.BaseClasses import LinkLayerPacket, InternetLayerPacket
@@ -47,17 +47,23 @@ class Ethernet(LinkLayerPacket):
         if ethe_tag_test == EtherType.VLAN or ethe_tag_test == EtherType.SERVICE_VLAN:
             keys = ('destination', 'source', 'tag', 'type')
             values = unpack('! 6s 6s L H', packet[:18])
-            out['payload'] = InternetLayerPacket.classes[values[-1]].disassemble(packet[18:])
+            out['payload'] = packet[18:]
         else:
             keys = ('destination', 'source', 'type')
             values = unpack('! 6s 6s H', packet[:14])
-            out['payload'] = InternetLayerPacket.classes[values[-1]].disassemble(packet[14:])
+            out['payload'] = packet[14:]
 
         for key, value in zip(keys, values):
             if key in ('source', 'destination'):
                 out[key] = MACAddress(value)
             else:
                 out[key] = EtherType(value)
+
+        # out['type'] should be an EtherType
+        # EtherType has a reference to a BaseClass in it's layer_class member
+        # layer_class will default to InternetLayerPacket but can be a LinkLayerPacket
+        # this is defined in the RawPacket.Tags module under EtherType
+        out['payload'] = out['type'].layer_class.classes[values[-1]].disassemble(out['payload'])
 
         return cls(**out)
 
