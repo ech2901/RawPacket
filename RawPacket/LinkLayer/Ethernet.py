@@ -24,7 +24,7 @@ class Ethernet(LinkLayerPacket):
         self.payload = payload
 
     def build(self):
-        if (self.vlan_tag):
+        if self.vlan_tag:
             header = pack('! 6s 6s L H', self.destination, self.source,
                           self.vlan_tag.value, self.ethertype.value)
         else:
