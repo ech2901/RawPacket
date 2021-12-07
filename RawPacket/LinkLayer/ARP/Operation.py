@@ -1,0 +1,29 @@
+from enum import IntEnum
+
+
+class Operation(IntEnum):
+    REQUEST = 1
+    REPLY = 2
+    REQUEST_REVERSE = 3
+    REPLY_REVERSE = 4
+    DRARP_REQUEST = 5
+    DRARP_REPLY = 6
+    DRARP_ERROR = 7
+    INARP_REQUEST = 8
+    INARP_REPLY = 9
+    ARP_NAK = 10
+    MARS_REQUEST = 11
+    MARS_MULTI = 12
+    MARS_MSERV = 13
+    MARS_JOIN = 14
+    MARS_LEAVE = 15
+    MARS_NAK = 16
+    MARS_UNSERV = 17
+    MARS_SJOIN = 18
+    MARS_SLEAVE = 19
+    MARS_GROUPLIST_REQUEST = 20
+    MARS_GROUPLIST_REPLY = 21
+    MARS_REDIRECT_MAP = 22
+    MAPOS_UNARP = 23
+    OP_EXP1 = 24
+    OP_EXP2 = 25
